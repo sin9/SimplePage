@@ -18,9 +18,13 @@ import cn.sinoutx.blog.service.ArticalService;
  */
 @WebServlet("/delete")
 public class DeleteServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
+	
 	private ArticalService articalService;
+	
 	 public DeleteServlet() {
+		 
 		 articalService= SpringTool.getCtx().getBean(ArticalService.class);
 	}
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
