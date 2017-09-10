@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="cn.sinoutx.blog.model.mappers.ArticalMapper">
+
+	<resultMap type="cn.sinoutx.blog.model.entity.Artical" id="artical">
+		<id column="artical_id" property="id"/>
+		<result column="artical_title" property="title"/>
+		<result column="artical_main" property="main"/>
+		<association property="user" javaType="cn.sinoutx.blog.model.entity.Member">
+			<id column="user_id" property="id"/>
+			<result column="user_name" property="uname"/>
+			<result column="user_password" property="password"/>
+		</association>
+	</resultMap>
+	
+	<resultMap type="cn.sinoutx.blog.model.entity.Member" id="member">
+		<id column="user_id" property="id"/>
+		<result column="user_name" property="uname"/>
+		<result column="user_password" property="password"/>
+	</resultMap>
+	
+	<select id="findByMemberName" resultMap="member">
+	select * from user where user_name = #{name}
+	</select>
+	
+	<select id="findAll" resultMap="artical">
+	select * from artical LEFT JOIN user ON artical.artical_user=user.user_id order by artical_id desc limit #{limit},8
+	</select>
+	
+	<select id="count" resultType="java.lang.Integer">
+		select count(*) from artical
+		<!-- <where>
+			<if test="artical_id!=null">
+						artical_id=#{artical_id}
+					</if>
+		</where> -->
+	</select>
+
+<select id="findAllById" resultMap="artical">
+	select * from artical LEFT JOIN user ON artical.artical_user=user.user_id where artical.artical_user=#{id}	order by artical_id desc limit #{limit},5
+	</select>
+	
+	<select id="countId" resultType="java.lang.Integer">
+		select count(*) from artical where artical_user=#{id}
+		
+	</select>
+	
+	
+	<insert id="addArtical">
+	INSERT INTO artical(artical_title,artical_main,artical_user) VALUES(#{title},#{main},#{id})
+	</insert>
+	
+	<select id="findAllByArticalId" resultMap="artical">
+	
+	select * from artical LEFT JOIN user ON artical.artical_user=user.user_id where artical_id=#{artical_id}
+	</select>
+	
+	<delete id="deleteId">
+	delete from artical where artical_id = #{id}
+	</delete>
+	
+	<insert id="addMember">
+	
+	insert into user(user_name,user_password) values(#{name},#{password})
+	
+	</insert>
+</mapper>

@@ -1,0 +1,65 @@
+*
+{
+margin:0;
+padding:0;
+}
+html,body
+{
+height:100%;
+width:100%;
+background-size:100% 100%;
+}
+.main-image{
+	width: 100%;
+	height: 450px;
+	margin: 0 auto;
+	background-image:url(../images/bodybac5.jpg);
+}
+.main-image .second-bac{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(120, 125, 120, 0.22);
+}
+/*.main-image .main-baccenter{
+	width:auto;
+	text-align: center;
+	margin: 0 auto;
+}
+/*.main-image .main-baccenter h1{
+	font-size: 130px;
+	color:rgba(255, 255, 255, 0.75);
+/*	font-weight: bold;
+}*/
+.main-articalname{
+	margin: 20px;
+}
+#page-artical{
+	width: 900px;
+	padding: 20px;
+	margin: 0 auto;
+	background-color: rgba(255, 255, 255, 0.69);
+}
+#form1{
+	margin-left: 100px;
+}
+#sample{
+	margin-top: 20px;
+	
+}
+.nicEdit-main{
+	background-color: rgba(255,255,255,0.85);
+} 
+.input-group .form-control {
+	background-color: rgba(255,255,255,0.85);
+} 
+.personal-image{
+	width: 100%;
+	height: 400px;
+	margin: 0 auto;
+	background-image:url(../images/bodybac3.jpg);
+}
+.personal-image .second-bac{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(120, 125, 120, 0.22);
+}

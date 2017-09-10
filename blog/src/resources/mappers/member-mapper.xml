@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="cn.sinoutx.blog.model.mappers.MemberMapper">
+
+	<resultMap type="cn.sinoutx.blog.model.entity.Member" id="member">
+		<id column="user_id" property="id"/>
+		<result column="user_name" property="uname"/>
+		<result column="user_password" property="password"/>
+	</resultMap>
+	
+	<select id="findByMemberName" resultMap="member">
+	select * from user where user_name = #{name}
+	</select>
+
+	<insert id="addMember">
+	
+	insert into user(user_name,user_password) values(#{name},#{password})
+	
+	</insert>
+	
+</mapper>

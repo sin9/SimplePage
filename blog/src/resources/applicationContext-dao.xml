@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd  
+        http://www.springframework.org/schema/tx   
+        http://www.springframework.org/schema/tx/spring-tx-4.3.xsd  
+        http://www.springframework.org/schema/aop   
+        http://www.springframework.org/schema/aop/spring-aop-4.3.xsd   
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 配置Spring的自动扫描 -->
+	<context:component-scan base-package="cn.sinoutx" />
+	
+	<!-- 加载properties配置文件属性 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<array>
+				<value>classpath:db.properties</value>
+			</array>
+		</property>
+	</bean>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+		<property name="targetDataSource">
+			<bean class="org.logicalcobwebs.proxool.ProxoolDataSource">
+				<property name="driver" value="${db.driver}" />
+				<property name="driverUrl" value="${db.driverUrl}" />
+				<property name="user" value="${db.user}" />
+				<property name="password" value="${db.password}" />
+				<property name="maximumConnectionCount" value="10" />
+				<property name="minimumConnectionCount" value="5" />
+				<property name="statistics" value="1m,15m,1h,1d" />
+				<property name="simultaneousBuildThrottle" value="30" />
+				<property name="trace" value="false" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<!-- Mybatis的配置文件路径 -->
+		<!-- <property name="configLocation" value="classpath:mybatis-config.xml"/> -->
+		<property name="mapperLocations" value="classpath*:mappers/*-mapper.xml"/>
+		<property name="typeAliasesPackage" value="cn.sinoutx.blog.model.entity"></property>
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageInterceptor">
+					<property name="properties">
+						<value>dialect=com.github.pagehelper.PageHelper</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+		<property name="basePackage" value="cn.sinoutx.blog.model.mappers"/>
+	</bean>
+	
+    <!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+		<!-- oracl数据库必须配置这一句话，只读事务才会生效 -->
+		<!-- <property name="enforceReadOnly" value="true"/> -->
+	</bean>
+	
+	<!-- 开启注解事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>

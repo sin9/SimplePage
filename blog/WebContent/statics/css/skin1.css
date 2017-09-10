@@ -1,0 +1,24 @@
+* { margin: 0; padding: 0; }
+
+html, body { height: 100%; width: 100%; background-size: 100% 100%; }
+
+body { background-color: #fff; }
+
+.main-image { width: 100%; height: 450px; margin: 0 auto; background-image: url(../images/bodybac5.jpg); }
+.main-image .second-bac { width: 100%; height: 100%; background-color: rgba(120, 125, 120, 0.22); }
+
+.main-articalname { margin: 20px; }
+
+#page-artical { width: 900px; padding: 20px; margin: 0 auto; background-color: rgba(255, 255, 255, 0.69); display: none; }
+
+#form1 { margin-left: 100px; }
+
+#sample { margin-top: 20px; }
+
+.nicEdit-main { background-color: rgba(255, 255, 255, 0.85); }
+
+.input-group .form-control { background-color: rgba(255, 255, 255, 0.85); }
+
+a.list-group-item { background-color: #fff; }
+
+/*# sourceMappingURL=skin1.css.map */
