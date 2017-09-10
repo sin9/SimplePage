@@ -28,6 +28,7 @@ public class DeleteServlet extends HttpServlet {
 		 articalService= SpringTool.getCtx().getBean(ArticalService.class);
 	}
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		String id =req.getParameter("id");
 		if(id!=""){
 		 int row = articalService.deleteId(id);
